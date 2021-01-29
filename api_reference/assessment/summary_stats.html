@@ -1,0 +1,342 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>gnomad.assessment.summary_stats &mdash; gnomad master documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/theme_overrides.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="gnomad.resources" href="../resources/index.html" />
+    <link rel="prev" title="gnomad.assessment.sanity_checks" href="sanity_checks.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> gnomad
+          
+
+          
+          </a>
+
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/index.html">Examples</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../variant_qc/index.html">variant_qc</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">assessment</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="sanity_checks.html">sanity_checks</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">summary_stats</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../resources/index.html">resources</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sample_qc/index.html">sample_qc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../utils/index.html">utils</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Change Log</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">gnomad</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">gnomad</a> &raquo;</li>
+        
+          <li><a href="index.html">gnomad.assessment</a> &raquo;</li>
+        
+      <li>gnomad.assessment.summary_stats</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/api_reference/assessment/summary_stats.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="gnomad-assessment-summary-stats">
+<h1>gnomad.assessment.summary_stats<a class="headerlink" href="#gnomad-assessment-summary-stats" title="Permalink to this headline">¶</a></h1>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#gnomad.assessment.summary_stats.freq_bin_expr" title="gnomad.assessment.summary_stats.freq_bin_expr"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gnomad.assessment.summary_stats.freq_bin_expr</span></code></a>(…)</p></td>
+<td><p>Returns case statement adding frequency string annotations based on input AC or AF.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#gnomad.assessment.summary_stats.get_summary_counts_dict" title="gnomad.assessment.summary_stats.get_summary_counts_dict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gnomad.assessment.summary_stats.get_summary_counts_dict</span></code></a>(…)</p></td>
+<td><p>Returns dictionary containing containing counts of multiple variant categories.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#gnomad.assessment.summary_stats.get_summary_counts" title="gnomad.assessment.summary_stats.get_summary_counts"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gnomad.assessment.summary_stats.get_summary_counts</span></code></a>(ht)</p></td>
+<td><p>Generates a struct with summary counts across variant categories.</p></td>
+</tr>
+</tbody>
+</table>
+<span class="target" id="module-gnomad.assessment.summary_stats"></span><dl class="function">
+<dt id="gnomad.assessment.summary_stats.freq_bin_expr">
+<code class="sig-prename descclassname">gnomad.assessment.summary_stats.</code><code class="sig-name descname">freq_bin_expr</code><span class="sig-paren">(</span><em class="sig-param">freq_expr</em>, <em class="sig-param">index=0</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/gnomad/assessment/summary_stats.html#freq_bin_expr"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gnomad.assessment.summary_stats.freq_bin_expr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns case statement adding frequency string annotations based on input AC or AF.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>freq_expr</strong> (<a class="reference external" href="https://hail.is/docs/0.2/hail.expr.ArrayExpression.html#hail.expr.ArrayExpression" title="(in Hail v0.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ArrayExpression</span></code></a>) – Array of structs containing frequency information.</p></li>
+<li><p><strong>index</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – Which index of freq_expr to use for annotation. Default is 0. 
+Assumes freq_expr was calculated with <cite>annotate_freq</cite>.
+Frequency index 0 from <cite>annotate_freq</cite> is frequency for all
+pops calculated on adj genotypes only.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://hail.is/docs/0.2/hail.expr.StringExpression.html#hail.expr.StringExpression" title="(in Hail v0.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">StringExpression</span></code></a></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>StringExpression containing bin name based on input AC or AF.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="gnomad.assessment.summary_stats.get_summary_counts_dict">
+<code class="sig-prename descclassname">gnomad.assessment.summary_stats.</code><code class="sig-name descname">get_summary_counts_dict</code><span class="sig-paren">(</span><em class="sig-param">allele_expr</em>, <em class="sig-param">lof_expr</em>, <em class="sig-param">no_lof_flags_expr</em>, <em class="sig-param">prefix_str=''</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/gnomad/assessment/summary_stats.html#get_summary_counts_dict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gnomad.assessment.summary_stats.get_summary_counts_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns dictionary containing containing counts of multiple variant categories.</p>
+<dl class="simple">
+<dt>Categories are:</dt><dd><ul class="simple">
+<li><p>Number of variants</p></li>
+<li><p>Number of indels</p></li>
+<li><p>Number of SNVs</p></li>
+<li><p>Number of LoF variants</p></li>
+<li><p>Number of LoF variants that pass LOFTEE</p></li>
+<li><p>Number of LoF variants that pass LOFTEE without any flgs</p></li>
+<li><p>Number of LoF variants annotated as “other splice” (OS) by LOFTEE</p></li>
+<li><p>Number of LoF variants that fail LOFTEE</p></li>
+</ul>
+</dd>
+<dt>..warning:: </dt><dd><p>Assumes <cite>allele_expr</cite> contains only two variants (multi-allelics have been split).</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>allele_expr</strong> (<a class="reference external" href="https://hail.is/docs/0.2/hail.expr.ArrayExpression.html#hail.expr.ArrayExpression" title="(in Hail v0.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ArrayExpression</span></code></a>) – ArrayExpression containing alleles.</p></li>
+<li><p><strong>lof_expr</strong> (<a class="reference external" href="https://hail.is/docs/0.2/hail.expr.StringExpression.html#hail.expr.StringExpression" title="(in Hail v0.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">StringExpression</span></code></a>) – StringExpression containing LOFTEE annotation.</p></li>
+<li><p><strong>no_lof_flags_expr</strong> (<a class="reference external" href="https://hail.is/docs/0.2/hail.expr.BooleanExpression.html#hail.expr.BooleanExpression" title="(in Hail v0.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">BooleanExpression</span></code></a>) – BooleanExpression indicating whether LoF variant has any flags.</p></li>
+<li><p><strong>prefix_str</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Desired prefix string for category names. Default is empty str.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <a class="reference external" href="https://hail.is/docs/0.2/hail.expr.Int64Expression.html#hail.expr.Int64Expression" title="(in Hail v0.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Int64Expression</span></code></a>]</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Dict of categories and counts per category.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="gnomad.assessment.summary_stats.get_summary_counts">
+<code class="sig-prename descclassname">gnomad.assessment.summary_stats.</code><code class="sig-name descname">get_summary_counts</code><span class="sig-paren">(</span><em class="sig-param">ht</em>, <em class="sig-param">freq_field='freq'</em>, <em class="sig-param">filter_field='filters'</em>, <em class="sig-param">filter_decoy=False</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/gnomad/assessment/summary_stats.html#get_summary_counts"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gnomad.assessment.summary_stats.get_summary_counts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates a struct with summary counts across variant categories.</p>
+<dl class="simple">
+<dt>Summary counts:</dt><dd><ul class="simple">
+<li><p>Number of variants</p></li>
+<li><p>Number of indels</p></li>
+<li><p>Number of SNVs</p></li>
+<li><p>Number of LoF variants</p></li>
+<li><p>Number of LoF variants that pass LOFTEE (including with LoF flags)</p></li>
+<li><p>Number of LoF variants that pass LOFTEE without LoF flags</p></li>
+<li><p>Number of OS (other splice) variants annotated by LOFTEE</p></li>
+<li><p>Number of LoF variants that fail LOFTEE filters</p></li>
+</ul>
+</dd>
+</dl>
+<p>Also annotates Table’s globals with total variant counts.</p>
+<dl class="simple">
+<dt>Before calculating summary counts, function:</dt><dd><ul class="simple">
+<li><p>Filters out low confidence regions</p></li>
+<li><p>Filters to canonical transcripts</p></li>
+<li><p>Uses the most severe consequence</p></li>
+</ul>
+</dd>
+<dt>Assumes that:</dt><dd><ul class="simple">
+<li><p>Input HT is annotated with VEP.</p></li>
+<li><p>Multiallelic variants have been split and/or input HT contains bi-allelic variants only.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ht</strong> (<a class="reference external" href="https://hail.is/docs/0.2/hail.Table.html#hail.Table" title="(in Hail v0.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Table</span></code></a>) – Input Table.</p></li>
+<li><p><strong>freq_field</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Name of field in HT containing frequency annotation (array of structs). Default is “freq”.</p></li>
+<li><p><strong>filter_field</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Name of field in HT containing variant filter information. Default is “filters”.</p></li>
+<li><p><strong>filter_decoy</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – Whether to filter decoy regions. Default is False.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://hail.is/docs/0.2/hail.Table.html#hail.Table" title="(in Hail v0.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Table</span></code></a></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Table grouped by frequency bin and aggregated across summary count categories.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../resources/index.html" class="btn btn-neutral float-right" title="gnomad.resources" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="sanity_checks.html" class="btn btn-neutral float-left" title="gnomad.assessment.sanity_checks" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+
+    </p>
+  </div> 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

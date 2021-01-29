@@ -1,0 +1,334 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>gnomad.assessment.sanity_checks &mdash; gnomad master documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/theme_overrides.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="gnomad.assessment.summary_stats" href="summary_stats.html" />
+    <link rel="prev" title="gnomad.assessment" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> gnomad
+          
+
+          
+          </a>
+
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/index.html">Examples</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../variant_qc/index.html">variant_qc</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">assessment</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">sanity_checks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="summary_stats.html">summary_stats</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../resources/index.html">resources</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sample_qc/index.html">sample_qc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../utils/index.html">utils</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Change Log</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">gnomad</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">gnomad</a> &raquo;</li>
+        
+          <li><a href="index.html">gnomad.assessment</a> &raquo;</li>
+        
+      <li>gnomad.assessment.sanity_checks</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/api_reference/assessment/sanity_checks.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="gnomad-assessment-sanity-checks">
+<h1>gnomad.assessment.sanity_checks<a class="headerlink" href="#gnomad-assessment-sanity-checks" title="Permalink to this headline">¶</a></h1>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#gnomad.assessment.sanity_checks.generic_field_check" title="gnomad.assessment.sanity_checks.generic_field_check"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gnomad.assessment.sanity_checks.generic_field_check</span></code></a>(ht, …)</p></td>
+<td><p>Check a generic logical condition involving annotations in a Hail Table and print the results to terminal.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#gnomad.assessment.sanity_checks.make_filters_sanity_check_expr" title="gnomad.assessment.sanity_checks.make_filters_sanity_check_expr"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gnomad.assessment.sanity_checks.make_filters_sanity_check_expr</span></code></a>(ht)</p></td>
+<td><p>Make Hail expressions to measure % variants filtered under varying conditions of interest.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#gnomad.assessment.sanity_checks.sample_sum_check" title="gnomad.assessment.sanity_checks.sample_sum_check"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gnomad.assessment.sanity_checks.sample_sum_check</span></code></a>(ht, …)</p></td>
+<td><p>Compute afresh the sum of annotations for a specified group of annotations, and compare to the annotated version; display results from checking the sum of the specified annotations in the terminal.</p></td>
+</tr>
+</tbody>
+</table>
+<span class="target" id="module-gnomad.assessment.sanity_checks"></span><dl class="function">
+<dt id="gnomad.assessment.sanity_checks.generic_field_check">
+<code class="sig-prename descclassname">gnomad.assessment.sanity_checks.</code><code class="sig-name descname">generic_field_check</code><span class="sig-paren">(</span><em class="sig-param">ht</em>, <em class="sig-param">cond_expr</em>, <em class="sig-param">check_description</em>, <em class="sig-param">display_fields</em>, <em class="sig-param">verbose</em>, <em class="sig-param">show_percent_sites=False</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/gnomad/assessment/sanity_checks.html#generic_field_check"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gnomad.assessment.sanity_checks.generic_field_check" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check a generic logical condition involving annotations in a Hail Table and print the results to terminal.</p>
+<p>Displays the number of rows (and percent of rows, if <cite>show_percent_sites</cite> is True) in the Table that match the <cite>cond_expr</cite> and fail to be the desired condition (<cite>check_description</cite>). 
+If the number of rows that match the <cite>cond_expr</cite> is 0, then the Table passes that check; otherwise, it fails.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><cite>cond_expr</cite> and <cite>check_description</cite> are opposites and should never be the same. 
+E.g., If <cite>cond_expr</cite> filters for instances where the raw AC is less than adj AC, 
+then it is checking sites that fail to be the desired condition (<cite>check_description</cite>) 
+of having a raw AC greater than or equal to the adj AC.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ht</strong> (<a class="reference external" href="https://hail.is/docs/0.2/hail.Table.html#hail.Table" title="(in Hail v0.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Table</span></code></a>) – Table containing annotations to be checked.</p></li>
+<li><p><strong>cond_expr</strong> (<a class="reference external" href="https://hail.is/docs/0.2/hail.expr.BooleanExpression.html#hail.expr.BooleanExpression" title="(in Hail v0.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">BooleanExpression</span></code></a>) – Logical expression referring to annotations in ht to be checked.</p></li>
+<li><p><strong>check_description</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – String describing the condition being checked; is displayed in terminal summary message.</p></li>
+<li><p><strong>display_fields</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]) – List of names of ht annotations to be displayed in case of failure (for troubleshooting purposes);
+these fields are also displayed if verbose is True.</p></li>
+<li><p><strong>verbose</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – If True, show top values of annotations being checked, including checks that pass; if False,
+show only top values of annotations that fail checks.</p></li>
+<li><p><strong>show_percent_sites</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – Show percentage of sites that fail checks. Default is False.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">None</span></code></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="gnomad.assessment.sanity_checks.make_filters_sanity_check_expr">
+<code class="sig-prename descclassname">gnomad.assessment.sanity_checks.</code><code class="sig-name descname">make_filters_sanity_check_expr</code><span class="sig-paren">(</span><em class="sig-param">ht</em>, <em class="sig-param">extra_filter_checks=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/gnomad/assessment/sanity_checks.html#make_filters_sanity_check_expr"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gnomad.assessment.sanity_checks.make_filters_sanity_check_expr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Make Hail expressions to measure % variants filtered under varying conditions of interest.</p>
+<dl class="simple">
+<dt>Checks for:</dt><dd><ul class="simple">
+<li><p>Total number of variants</p></li>
+<li><dl class="simple">
+<dt>Fraction of variants removed due to:</dt><dd><ul>
+<li><p>Any filter</p></li>
+<li><p>Inbreeding coefficient filter in combination with any other filter</p></li>
+<li><p>AC0 filter in combination with any other filter</p></li>
+<li><p>Random forest filtering in combination with any other filter</p></li>
+<li><p>Only inbreeding coefficient filter</p></li>
+<li><p>Only AC0 filter</p></li>
+<li><p>Only random forest filtering</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ht</strong> (<a class="reference external" href="https://hail.is/docs/0.2/hail.Table.html#hail.Table" title="(in Hail v0.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Table</span></code></a>) – Table containing ‘filter’ annotation to be examined.</p></li>
+<li><p><strong>extra_filter_checks</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <a class="reference external" href="https://hail.is/docs/0.2/hail.expr.Expression.html#hail.expr.Expression" title="(in Hail v0.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Expression</span></code></a>]]) – Optional dictionary containing filter condition name (key) extra filter expressions (value) to be examined.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <a class="reference external" href="https://hail.is/docs/0.2/hail.expr.Expression.html#hail.expr.Expression" title="(in Hail v0.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Expression</span></code></a>]</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Dictionary containing Hail aggregation expressions to examine filter flags.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="gnomad.assessment.sanity_checks.sample_sum_check">
+<code class="sig-prename descclassname">gnomad.assessment.sanity_checks.</code><code class="sig-name descname">sample_sum_check</code><span class="sig-paren">(</span><em class="sig-param">ht, prefix, label_groups, verbose, subpop=None, sort_order=['subset', 'downsampling', 'popmax', 'pop', 'subpop', 'sex', 'group']</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/gnomad/assessment/sanity_checks.html#sample_sum_check"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gnomad.assessment.sanity_checks.sample_sum_check" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute afresh the sum of annotations for a specified group of annotations, and compare to the annotated version;
+display results from checking the sum of the specified annotations in the terminal.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ht</strong> (<a class="reference external" href="https://hail.is/docs/0.2/hail.Table.html#hail.Table" title="(in Hail v0.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Table</span></code></a>) – Table containing annotations to be summed.</p></li>
+<li><p><strong>prefix</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – String indicating sample subset.</p></li>
+<li><p><strong>label_groups</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]]) – Dictionary containing an entry for each label group, where key is the name of the grouping,
+e.g. “sex” or “pop”, and value is a list of all possible values for that grouping (e.g. [“male”, “female”] or [“afr”, “nfe”, “amr”]).</p></li>
+<li><p><strong>verbose</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – If True, show top values of annotations being checked, including checks that pass; if False,
+show only top values of annotations that fail checks.</p></li>
+<li><p><strong>subpop</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>]) – Subpop abbreviation, supplied only if subpopulations are included in the annotation groups being checked.</p></li>
+<li><p><strong>sort_order</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]) – List containing order to sort label group combinations. Default is SORT_ORDER.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">None</span></code></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="summary_stats.html" class="btn btn-neutral float-right" title="gnomad.assessment.summary_stats" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral float-left" title="gnomad.assessment" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+
+    </p>
+  </div> 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

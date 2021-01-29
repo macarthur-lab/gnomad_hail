@@ -1,0 +1,279 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Changes &mdash; gnomad master documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/theme_overrides.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="gnomad.utils.vep" href="api_reference/utils/vep.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> gnomad
+          
+
+          
+          </a>
+
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/index.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api_reference/index.html">API Reference</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Change Log</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#version-0-4-0-july-9th-2020">Version 0.4.0 - July 9th, 2020</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#version-0-3-0-april-28th-2020">Version 0.3.0 - April 28th, 2020</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#changed">Changed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#version-0-2-0-april-3rd-2020">Version 0.2.0 - April 3rd, 2020</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#added">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id1">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fixed">Fixed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#version-0-1-0-march-4th-2020">Version 0.1.0 - March 4th, 2020</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">gnomad</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Changes</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/changelog.md.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="changes">
+<h1>Changes<a class="headerlink" href="#changes" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="version-0-4-0-july-9th-2020">
+<h2>Version 0.4.0 - July 9th, 2020<a class="headerlink" href="#version-0-4-0-july-9th-2020" title="Permalink to this headline">¶</a></h2>
+<p><strong>Note</strong> gnomAD resources have been moved to a <a class="reference external" href="https://cloud.google.com/storage/docs/requester-pays">requester pays bucket</a>.
+Dataproc clusters must be <a class="reference external" href="https://hail.is/docs/0.2/cloud/google_cloud.html#requester-pays">configured to allow reading from it</a>.</p>
+<ul class="simple">
+<li><p>Added <code class="docutils literal notranslate"><span class="pre">VEP_CSQ_HEADER</span></code> to generate vep description necessary for VCF export. <a class="reference external" href="https://github.com/broadinstitute/gnomad_methods/pull/230">(#230)</a></p></li>
+<li><p>Modified variant QC pipeline functions <code class="docutils literal notranslate"><span class="pre">generate_trio_stats</span></code> and <code class="docutils literal notranslate"><span class="pre">generate_sib_stats</span></code> to add filter parameter for autosomes and bi-allelic sites <a class="reference external" href="https://github.com/broadinstitute/gnomad_methods/pull/223">(#223)</a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">score_bin_agg</span></code> now requires additional annotations <code class="docutils literal notranslate"><span class="pre">ac</span></code> and <code class="docutils literal notranslate"><span class="pre">ac_qc_samples_unrelated_raw</span></code> and no longer needs <code class="docutils literal notranslate"><span class="pre">tdt</span></code> <a class="reference external" href="https://github.com/broadinstitute/gnomad_methods/pull/223">(#223)</a></p></li>
+<li><p>Changed <code class="docutils literal notranslate"><span class="pre">score_bin_agg</span></code> to use <code class="docutils literal notranslate"><span class="pre">ac_qc_samples_unrelated_raw</span></code> annotation instead of <code class="docutils literal notranslate"><span class="pre">unrelated_qc_callstats</span></code> <a class="reference external" href="https://github.com/broadinstitute/gnomad_methods/pull/223">(#223)</a></p></li>
+<li><p>Added singleton de novo counts to variant QC pipeline function <code class="docutils literal notranslate"><span class="pre">score_bin_agg</span></code> <a class="reference external" href="https://github.com/broadinstitute/gnomad_methods/pull/223">(#223)</a></p></li>
+<li><p>Modified <code class="docutils literal notranslate"><span class="pre">filter_mt_to_trios</span></code> to no longer filter to autosomes as this should be handled during the variant QC pipeline <a class="reference external" href="https://github.com/broadinstitute/gnomad_methods/pull/223">(#223)</a></p></li>
+<li><p>Updated <code class="docutils literal notranslate"><span class="pre">annotate_sex</span></code> to add globals to <code class="docutils literal notranslate"><span class="pre">sex_ht</span></code> <a class="reference external" href="https://github.com/broadinstitute/gnomad_methods/pull/227">(#227)</a></p></li>
+<li><p>Document <code class="docutils literal notranslate"><span class="pre">slack_notifications</span></code> function <a class="reference external" href="https://github.com/broadinstitute/gnomad_methods/pull/228">(#228)</a></p></li>
+<li><p>Added <code class="docutils literal notranslate"><span class="pre">median_impute_features</span></code> to variant QC random forest module <a class="reference external" href="https://github.com/broadinstitute/gnomad_methods/pull/224">(224)</a></p></li>
+<li><p>Created <code class="docutils literal notranslate"><span class="pre">training.py</span></code> in variant QC and added <code class="docutils literal notranslate"><span class="pre">sample_training_examples</span></code> <a class="reference external" href="https://github.com/broadinstitute/gnomad_methods/pull/224">(224)</a></p></li>
+<li><p>Added variant QC pipeline function <code class="docutils literal notranslate"><span class="pre">train_rf_model</span></code> <a class="reference external" href="https://github.com/broadinstitute/gnomad_methods/pull/224">(224)</a></p></li>
+<li><p>Use local copy of VEP config instead of reading from bucket <a class="reference external" href="https://github.com/broadinstitute/gnomad_methods/pull/231">(#231)</a></p></li>
+<li><p>Updated gnomAD resources paths for hail tables to requester pays buckets <a class="reference external" href="https://github.com/broadinstitute/gnomad_methods/pull/233">(#233)</a></p></li>
+</ul>
+</div>
+<div class="section" id="version-0-3-0-april-28th-2020">
+<h2>Version 0.3.0 - April 28th, 2020<a class="headerlink" href="#version-0-3-0-april-28th-2020" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="changed">
+<h3>Changed<a class="headerlink" href="#changed" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Updated capitalization of ambiguous sex annotation <a class="reference external" href="https://github.com/broadinstitute/gnomad_methods/pull/208">(#208)</a></p></li>
+<li><p>Updated usage of included intervals in imputing sex ploidy, also updated interval parameter names <a class="reference external" href="https://github.com/broadinstitute/gnomad_methods/pull/209">(#209)</a></p></li>
+<li><p>Updated capitalization in relatedness constants <a class="reference external" href="https://github.com/broadinstitute/gnomad_methods/pull/217">(#217)</a></p></li>
+<li><p>Changed interface for Slack notifications <a class="reference external" href="https://github.com/broadinstitute/gnomad_methods/pull/219">(#219)</a></p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="version-0-2-0-april-3rd-2020">
+<h2>Version 0.2.0 - April 3rd, 2020<a class="headerlink" href="#version-0-2-0-april-3rd-2020" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="added">
+<h3>Added<a class="headerlink" href="#added" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Function to subset a <code class="docutils literal notranslate"><span class="pre">MatrixTable</span></code> based on a list of samples <a class="reference external" href="https://github.com/broadinstitute/gnomad_methods/pull/196">(#196)</a></p></li>
+<li><p>Function to get file size and MD5 hash <a class="reference external" href="https://github.com/broadinstitute/gnomad_methods/pull/186">(#186)</a></p></li>
+<li><p>Developer documentation <a class="reference external" href="https://github.com/broadinstitute/gnomad_methods/pull/185">(#185)</a></p></li>
+<li><p>Include <code class="docutils literal notranslate"><span class="pre">RAW_MQ</span></code> and <code class="docutils literal notranslate"><span class="pre">AS_VQSLOD</span></code> metrics in <code class="docutils literal notranslate"><span class="pre">get_annotations_hists</span></code> <a class="reference external" href="https://github.com/broadinstitute/gnomad_methods/pull/181">(#181)</a></p></li>
+<li><p>Functions to compute coverage stats from sparse MT <a class="reference external" href="https://github.com/broadinstitute/gnomad_methods/pull/173">(#173)</a></p></li>
+</ul>
+</div>
+<div class="section" id="id1">
+<h3>Changed<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Repo restructured - imports may need to be updated [(#207)] (https://github.com/broadinstitute/gnomad_methods/pull/207)</p></li>
+<li><p>Make some arguments to <code class="docutils literal notranslate"><span class="pre">get_qc_mt</span></code> optional <a class="reference external" href="https://github.com/broadinstitute/gnomad_methods/pull/200">(#200)</a></p></li>
+<li><p>Fetch VEP configuration from new Hail requestor pays buckets <a class="reference external" href="https://github.com/broadinstitute/gnomad_methods/pull/197">(#197)</a></p></li>
+<li><p>Hail must be installed separately <a class="reference external" href="https://github.com/broadinstitute/gnomad_methods/pull/194">(#194)</a></p></li>
+</ul>
+</div>
+<div class="section" id="fixed">
+<h3>Fixed<a class="headerlink" href="#fixed" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Father/mother assignments now correct (were swapped before) <code class="docutils literal notranslate"><span class="pre">infer_families</span></code> <a class="reference external" href="https://github.com/broadinstitute/gnomad_methods/pull/203">(#203)</a></p></li>
+<li><p>Attribute assignments for <code class="docutils literal notranslate"><span class="pre">VersionedPedigreeResource</span></code> <a class="reference external" href="https://github.com/broadinstitute/gnomad_methods/pull/198">(#198)</a></p></li>
+<li><p>Field references in <code class="docutils literal notranslate"><span class="pre">get_annotations_hists</span></code> <a class="reference external" href="https://github.com/broadinstitute/gnomad_methods/pull/181">(#181)</a></p></li>
+<li><p>Use before assignment error in <code class="docutils literal notranslate"><span class="pre">default_compute_info</span></code> <a class="reference external" href="https://github.com/broadinstitute/gnomad_methods/pull/195">(#195)</a></p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="version-0-1-0-march-4th-2020">
+<h2>Version 0.1.0 - March 4th, 2020<a class="headerlink" href="#version-0-1-0-march-4th-2020" title="Permalink to this headline">¶</a></h2>
+<p>Initial release</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="api_reference/utils/vep.html" class="btn btn-neutral float-left" title="gnomad.utils.vep" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+
+    </p>
+  </div> 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

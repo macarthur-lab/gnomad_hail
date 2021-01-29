@@ -1,0 +1,8 @@
+gnomad.assessment.sanity_checks
+===============================
+
+
+
+.. gnomad_automodulesummary:: gnomad.assessment.sanity_checks
+
+.. automodule:: gnomad.assessment.sanity_checks

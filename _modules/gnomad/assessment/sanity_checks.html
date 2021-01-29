@@ -1,0 +1,360 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>gnomad.assessment.sanity_checks &mdash; gnomad master documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/theme_overrides.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> gnomad
+          
+
+          
+          </a>
+
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/index.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api_reference/index.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html">Change Log</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">gnomad</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>gnomad.assessment.sanity_checks</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for gnomad.assessment.sanity_checks</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span>
+
+<span class="kn">import</span> <span class="nn">hail</span> <span class="k">as</span> <span class="nn">hl</span>
+
+<span class="kn">from</span> <span class="nn">gnomad.utils.vcf</span> <span class="kn">import</span> <span class="n">make_label_combos</span><span class="p">,</span> <span class="n">SORT_ORDER</span>
+
+
+<span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="nb">format</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%(levelname)s</span><span class="s2"> (</span><span class="si">%(name)s</span><span class="s2"> </span><span class="si">%(lineno)s</span><span class="s2">): </span><span class="si">%(message)s</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+<span class="n">logger</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="generic_field_check"><a class="viewcode-back" href="../../../api_reference/assessment/sanity_checks.html#gnomad.assessment.sanity_checks.generic_field_check">[docs]</a><span class="k">def</span> <span class="nf">generic_field_check</span><span class="p">(</span>
+    <span class="n">ht</span><span class="p">:</span> <span class="n">hl</span><span class="o">.</span><span class="n">Table</span><span class="p">,</span>
+    <span class="n">cond_expr</span><span class="p">:</span> <span class="n">hl</span><span class="o">.</span><span class="n">expr</span><span class="o">.</span><span class="n">BooleanExpression</span><span class="p">,</span>
+    <span class="n">check_description</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">display_fields</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
+    <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
+    <span class="n">show_percent_sites</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Check a generic logical condition involving annotations in a Hail Table and print the results to terminal.</span>
+
+<span class="sd">    Displays the number of rows (and percent of rows, if `show_percent_sites` is True) in the Table that match the `cond_expr` and fail to be the desired condition (`check_description`). </span>
+<span class="sd">    If the number of rows that match the `cond_expr` is 0, then the Table passes that check; otherwise, it fails.</span>
+
+<span class="sd">    .. note::</span>
+<span class="sd">        `cond_expr` and `check_description` are opposites and should never be the same. </span>
+<span class="sd">        E.g., If `cond_expr` filters for instances where the raw AC is less than adj AC, </span>
+<span class="sd">        then it is checking sites that fail to be the desired condition (`check_description`) </span>
+<span class="sd">        of having a raw AC greater than or equal to the adj AC.</span>
+
+<span class="sd">    :param ht: Table containing annotations to be checked.</span>
+<span class="sd">    :param cond_expr: Logical expression referring to annotations in ht to be checked.</span>
+<span class="sd">    :param check_description: String describing the condition being checked; is displayed in terminal summary message.</span>
+<span class="sd">    :param display_fields: List of names of ht annotations to be displayed in case of failure (for troubleshooting purposes);</span>
+<span class="sd">        these fields are also displayed if verbose is True.</span>
+<span class="sd">    :param verbose: If True, show top values of annotations being checked, including checks that pass; if False,</span>
+<span class="sd">        show only top values of annotations that fail checks.</span>
+<span class="sd">    :param show_percent_sites: Show percentage of sites that fail checks. Default is False.</span>
+<span class="sd">    :return: None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">ht_orig</span> <span class="o">=</span> <span class="n">ht</span>
+    <span class="n">ht</span> <span class="o">=</span> <span class="n">ht</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">cond_expr</span><span class="p">)</span>
+    <span class="n">n_fail</span> <span class="o">=</span> <span class="n">ht</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">n_fail</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Found </span><span class="si">{</span><span class="n">n_fail</span><span class="si">}</span><span class="s2"> sites that fail </span><span class="si">{</span><span class="n">check_description</span><span class="si">}</span><span class="s2"> check:&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">show_percent_sites</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Percentage of sites that fail: </span><span class="si">{</span><span class="n">n_fail</span> <span class="o">/</span> <span class="n">ht_orig</span><span class="o">.</span><span class="n">count</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">ht</span> <span class="o">=</span> <span class="n">ht</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+        <span class="n">ht</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s2">&quot;locus&quot;</span><span class="p">,</span> <span class="s2">&quot;alleles&quot;</span><span class="p">,</span> <span class="o">*</span><span class="n">display_fields</span><span class="p">)</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;PASSED </span><span class="si">{</span><span class="n">check_description</span><span class="si">}</span><span class="s2"> check&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+            <span class="n">ht_orig</span> <span class="o">=</span> <span class="n">ht_orig</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+            <span class="n">ht_orig</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="o">*</span><span class="n">display_fields</span><span class="p">)</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="make_filters_sanity_check_expr"><a class="viewcode-back" href="../../../api_reference/assessment/sanity_checks.html#gnomad.assessment.sanity_checks.make_filters_sanity_check_expr">[docs]</a><span class="k">def</span> <span class="nf">make_filters_sanity_check_expr</span><span class="p">(</span>
+    <span class="n">ht</span><span class="p">:</span> <span class="n">hl</span><span class="o">.</span><span class="n">Table</span><span class="p">,</span> <span class="n">extra_filter_checks</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">hl</span><span class="o">.</span><span class="n">expr</span><span class="o">.</span><span class="n">Expression</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">hl</span><span class="o">.</span><span class="n">expr</span><span class="o">.</span><span class="n">Expression</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Make Hail expressions to measure % variants filtered under varying conditions of interest.</span>
+
+<span class="sd">    Checks for:</span>
+<span class="sd">        - Total number of variants</span>
+<span class="sd">        - Fraction of variants removed due to:</span>
+<span class="sd">            - Any filter</span>
+<span class="sd">            - Inbreeding coefficient filter in combination with any other filter</span>
+<span class="sd">            - AC0 filter in combination with any other filter</span>
+<span class="sd">            - Random forest filtering in combination with any other filter</span>
+<span class="sd">            - Only inbreeding coefficient filter</span>
+<span class="sd">            - Only AC0 filter</span>
+<span class="sd">            - Only random forest filtering</span>
+
+<span class="sd">    :param ht: Table containing &#39;filter&#39; annotation to be examined.</span>
+<span class="sd">    :param extra_filter_checks: Optional dictionary containing filter condition name (key) extra filter expressions (value) to be examined.</span>
+<span class="sd">    :return: Dictionary containing Hail aggregation expressions to examine filter flags.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">filters_dict</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;n&quot;</span><span class="p">:</span> <span class="n">hl</span><span class="o">.</span><span class="n">agg</span><span class="o">.</span><span class="n">count</span><span class="p">(),</span>
+        <span class="s2">&quot;frac_any_filter&quot;</span><span class="p">:</span> <span class="n">hl</span><span class="o">.</span><span class="n">agg</span><span class="o">.</span><span class="n">fraction</span><span class="p">(</span><span class="n">hl</span><span class="o">.</span><span class="n">len</span><span class="p">(</span><span class="n">ht</span><span class="o">.</span><span class="n">filters</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">),</span>
+        <span class="s2">&quot;frac_inbreed_coeff&quot;</span><span class="p">:</span> <span class="n">hl</span><span class="o">.</span><span class="n">agg</span><span class="o">.</span><span class="n">fraction</span><span class="p">(</span><span class="n">ht</span><span class="o">.</span><span class="n">filters</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s2">&quot;InbreedingCoeff&quot;</span><span class="p">)),</span>
+        <span class="s2">&quot;frac_ac0&quot;</span><span class="p">:</span> <span class="n">hl</span><span class="o">.</span><span class="n">agg</span><span class="o">.</span><span class="n">fraction</span><span class="p">(</span><span class="n">ht</span><span class="o">.</span><span class="n">filters</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s2">&quot;AC0&quot;</span><span class="p">)),</span>
+        <span class="s2">&quot;frac_rf&quot;</span><span class="p">:</span> <span class="n">hl</span><span class="o">.</span><span class="n">agg</span><span class="o">.</span><span class="n">fraction</span><span class="p">(</span><span class="n">ht</span><span class="o">.</span><span class="n">filters</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s2">&quot;RF&quot;</span><span class="p">)),</span>
+        <span class="s2">&quot;frac_inbreed_coeff_only&quot;</span><span class="p">:</span> <span class="n">hl</span><span class="o">.</span><span class="n">agg</span><span class="o">.</span><span class="n">fraction</span><span class="p">(</span>
+            <span class="n">ht</span><span class="o">.</span><span class="n">filters</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s2">&quot;InbreedingCoeff&quot;</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">ht</span><span class="o">.</span><span class="n">filters</span><span class="o">.</span><span class="n">length</span><span class="p">()</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="p">),</span>
+        <span class="s2">&quot;frac_ac0_only&quot;</span><span class="p">:</span> <span class="n">hl</span><span class="o">.</span><span class="n">agg</span><span class="o">.</span><span class="n">fraction</span><span class="p">(</span>
+            <span class="n">ht</span><span class="o">.</span><span class="n">filters</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s2">&quot;AC0&quot;</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">ht</span><span class="o">.</span><span class="n">filters</span><span class="o">.</span><span class="n">length</span><span class="p">()</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="p">),</span>
+        <span class="s2">&quot;frac_rf_only&quot;</span><span class="p">:</span> <span class="n">hl</span><span class="o">.</span><span class="n">agg</span><span class="o">.</span><span class="n">fraction</span><span class="p">(</span>
+            <span class="n">ht</span><span class="o">.</span><span class="n">filters</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s2">&quot;RF&quot;</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">ht</span><span class="o">.</span><span class="n">filters</span><span class="o">.</span><span class="n">length</span><span class="p">()</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="p">),</span>
+    <span class="p">}</span>
+    <span class="k">if</span> <span class="n">extra_filter_checks</span><span class="p">:</span>
+        <span class="n">filters_dict</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">extra_filter_checks</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">filters_dict</span></div>
+
+
+<div class="viewcode-block" id="sample_sum_check"><a class="viewcode-back" href="../../../api_reference/assessment/sanity_checks.html#gnomad.assessment.sanity_checks.sample_sum_check">[docs]</a><span class="k">def</span> <span class="nf">sample_sum_check</span><span class="p">(</span>
+    <span class="n">ht</span><span class="p">:</span> <span class="n">hl</span><span class="o">.</span><span class="n">Table</span><span class="p">,</span>
+    <span class="n">prefix</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">label_groups</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]],</span>
+    <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
+    <span class="n">subpop</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">sort_order</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">SORT_ORDER</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compute afresh the sum of annotations for a specified group of annotations, and compare to the annotated version;</span>
+<span class="sd">    display results from checking the sum of the specified annotations in the terminal.</span>
+
+<span class="sd">    :param ht: Table containing annotations to be summed.</span>
+<span class="sd">    :param prefix: String indicating sample subset.</span>
+<span class="sd">    :param label_groups: Dictionary containing an entry for each label group, where key is the name of the grouping,</span>
+<span class="sd">        e.g. &quot;sex&quot; or &quot;pop&quot;, and value is a list of all possible values for that grouping (e.g. [&quot;male&quot;, &quot;female&quot;] or [&quot;afr&quot;, &quot;nfe&quot;, &quot;amr&quot;]).</span>
+<span class="sd">    :param verbose: If True, show top values of annotations being checked, including checks that pass; if False,</span>
+<span class="sd">        show only top values of annotations that fail checks.</span>
+<span class="sd">    :param subpop: Subpop abbreviation, supplied only if subpopulations are included in the annotation groups being checked.</span>
+<span class="sd">    :param sort_order: List containing order to sort label group combinations. Default is SORT_ORDER.</span>
+<span class="sd">    :return: None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">prefix</span> <span class="o">!=</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
+        <span class="n">prefix</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">prefix</span><span class="si">}</span><span class="s2">_&quot;</span>
+
+    <span class="n">label_combos</span> <span class="o">=</span> <span class="n">make_label_combos</span><span class="p">(</span><span class="n">label_groups</span><span class="p">)</span>
+    <span class="n">combo_AC</span> <span class="o">=</span> <span class="p">[</span><span class="n">ht</span><span class="o">.</span><span class="n">info</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">prefix</span><span class="si">}</span><span class="s2">AC_</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">label_combos</span><span class="p">]</span>
+    <span class="n">combo_AN</span> <span class="o">=</span> <span class="p">[</span><span class="n">ht</span><span class="o">.</span><span class="n">info</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">prefix</span><span class="si">}</span><span class="s2">AN_</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">label_combos</span><span class="p">]</span>
+    <span class="n">combo_nhomalt</span> <span class="o">=</span> <span class="p">[</span><span class="n">ht</span><span class="o">.</span><span class="n">info</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">prefix</span><span class="si">}</span><span class="s2">nhomalt_</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">label_combos</span><span class="p">]</span>
+
+    <span class="n">group</span> <span class="o">=</span> <span class="n">label_groups</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;group&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">alt_groups</span> <span class="o">=</span> <span class="s2">&quot;_&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+        <span class="nb">sorted</span><span class="p">(</span><span class="n">label_groups</span><span class="o">.</span><span class="n">keys</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">sort_order</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+    <span class="p">)</span>
+
+    <span class="n">annot_dict</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="sa">f</span><span class="s2">&quot;sum_AC_</span><span class="si">{</span><span class="n">group</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">alt_groups</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">:</span> <span class="n">hl</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">combo_AC</span><span class="p">),</span>
+        <span class="sa">f</span><span class="s2">&quot;sum_AN_</span><span class="si">{</span><span class="n">group</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">alt_groups</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">:</span> <span class="n">hl</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">combo_AN</span><span class="p">),</span>
+        <span class="sa">f</span><span class="s2">&quot;sum_nhomalt_</span><span class="si">{</span><span class="n">group</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">alt_groups</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">:</span> <span class="n">hl</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">combo_nhomalt</span><span class="p">),</span>
+    <span class="p">}</span>
+
+    <span class="n">ht</span> <span class="o">=</span> <span class="n">ht</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="o">**</span><span class="n">annot_dict</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">subfield</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;AC&quot;</span><span class="p">,</span> <span class="s2">&quot;AN&quot;</span><span class="p">,</span> <span class="s2">&quot;nhomalt&quot;</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">subpop</span><span class="p">:</span>
+            <span class="n">generic_field_check</span><span class="p">(</span>
+                <span class="n">ht</span><span class="p">,</span>
+                <span class="p">(</span>
+                    <span class="n">ht</span><span class="o">.</span><span class="n">info</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">prefix</span><span class="si">}{</span><span class="n">subfield</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">group</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">]</span>
+                    <span class="o">!=</span> <span class="n">ht</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;sum_</span><span class="si">{</span><span class="n">subfield</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">group</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">alt_groups</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">]</span>
+                <span class="p">),</span>
+                <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">prefix</span><span class="si">}{</span><span class="n">subfield</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">group</span><span class="si">}</span><span class="s2"> = sum(</span><span class="si">{</span><span class="n">subfield</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">group</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">alt_groups</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">,</span>
+                <span class="p">[</span>
+                    <span class="sa">f</span><span class="s2">&quot;info.</span><span class="si">{</span><span class="n">prefix</span><span class="si">}{</span><span class="n">subfield</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">group</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+                    <span class="sa">f</span><span class="s2">&quot;sum_</span><span class="si">{</span><span class="n">subfield</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">group</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">alt_groups</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+                <span class="p">],</span>
+                <span class="n">verbose</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">generic_field_check</span><span class="p">(</span>
+                <span class="n">ht</span><span class="p">,</span>
+                <span class="p">(</span>
+                    <span class="n">ht</span><span class="o">.</span><span class="n">info</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">prefix</span><span class="si">}{</span><span class="n">subfield</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">subpop</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">group</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">]</span>
+                    <span class="o">!=</span> <span class="n">ht</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;sum_</span><span class="si">{</span><span class="n">subfield</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">group</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">alt_groups</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">]</span>
+                <span class="p">),</span>
+                <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">prefix</span><span class="si">}{</span><span class="n">subfield</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">subpop</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">group</span><span class="si">}</span><span class="s2"> = sum(</span><span class="si">{</span><span class="n">subfield</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">group</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">alt_groups</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">,</span>
+                <span class="p">[</span>
+                    <span class="sa">f</span><span class="s2">&quot;info.</span><span class="si">{</span><span class="n">prefix</span><span class="si">}{</span><span class="n">subfield</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">subpop</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">group</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+                    <span class="sa">f</span><span class="s2">&quot;sum_</span><span class="si">{</span><span class="n">subfield</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">group</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">alt_groups</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+                <span class="p">],</span>
+                <span class="n">verbose</span><span class="p">,</span>
+            <span class="p">)</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+
+    </p>
+  </div> 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
